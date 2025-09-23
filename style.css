@@ -24,7 +24,7 @@ body {
 body {
 	margin: 0;
 	font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
-	background: linear-gradient(180deg, #0b0c0f 0%, #0e1117 100%);
+	background: linear-gradient(90deg, #0b0c0f 0%, #111620 100%);
 	color: var(--text);
 	line-height: 1.55;
 }
@@ -62,13 +62,27 @@ a {
 }
 
 .logo {
-	font-weight: 800;
-	letter-spacing: .3px;
-	font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 5px;
 	padding: 8px 12px;
 	border-radius: 10px;
 	background: linear-gradient(135deg, var(--brand), var(--brand-2));
 	color: #0a0d14;
+}
+
+.logo-img {
+    height: 30px;
+    aspect-ratio: 1;
+}
+
+.logo-p {
+    margin-block: 5px;
+    font-weight: 800;
+	letter-spacing: .3px;
+	font-size: 15px;
 }
 
 .nav {
@@ -224,6 +238,12 @@ a {
 
 .cta p {
 	color: var(--muted);
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.cta h2 {
+    margin-block: 0px;
 }
 
 .page-title {
