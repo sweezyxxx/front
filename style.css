@@ -12,15 +12,16 @@
 	--shadow: 0 10px 25px rgba(0, 0, 0, .35);
 }
 
+html,
+body {
+	height: 45%;
+}
+
 * {
 	box-sizing: border-box;
     scroll-behavior: smooth;
 }
 
-html,
-body {
-	height: 100%;
-}
 
 body {
 	margin: 0;
@@ -377,8 +378,13 @@ a {
 }
 
 .note p {
-	margin: 0;
-	color: var(--muted);
+    margin: 0;
+    color: var(--muted);
+    max-width: 700px;
+}
+
+.note a {
+    min-width: 200px;
 }
 
 @media (max-width: 680px) {
