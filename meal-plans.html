@@ -75,11 +75,22 @@
     <p>Готовьте на 2 дня вперёд, чтобы экономить время. Овощи и зелень храните в герметичных контейнерах. Пейте достаточно воды.</p>
     <a class="btn" href="recipes.html">Открыть рецепты</a>
   </div>
+
+  <section class="todo-section" id="todo-app">
+    <h2>Список дел</h2>
+    <div class="todo-controls">
+      <input type="text" id="todo-input" placeholder="Новая задача" aria-label="Новая задача">
+      <button class="btn primary" id="todo-add" type="button">Добавить</button>
+    </div>
+    <div id="todo-error" class="error-text" style="display:none"></div>
+    <ul id="todo-list" class="todo-list"></ul>
+  </section>
 </main>
 
 <footer class="site-footer">
   <div class="container footer-row">
     <div>© Cooking & Recipes</div>
+    <div class="footer-team">Команда: Bexultan</div>
     <div class="footer-links">
       <a href="about.html">О нас</a>
       <a href="index.html">Главная</a>
@@ -87,5 +98,6 @@
     </div>
   </div>
 </footer>
+<script src="app.js" defer></script>
 </body>
 </html>
