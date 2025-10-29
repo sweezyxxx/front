@@ -610,3 +610,132 @@ textarea {
 .footer-team {
 	color: var(--muted);
 }
+
+.jquery-section .demo-block {
+	background: #141a24;
+	border: 1px solid var(--border);
+	border-radius: var(--radius-lg);
+	padding: 16px;
+	box-shadow: var(--shadow);
+	margin: 14px 0;
+}
+
+.jquery-section .demo-block h3 {
+	margin-top: 0;
+}
+
+.demo-p {
+	color: var(--muted);
+}
+
+.panel {
+	background: #182033;
+	border: 1px solid var(--border);
+	border-radius: 12px;
+	padding: 12px;
+}
+
+.demo-list {
+	margin: 10px 0;
+	padding-left: 18px;
+}
+
+.animate-area {
+	position: relative;
+	height: 180px;
+	border: 1px dashed var(--border);
+	background: #12141a;
+	border-radius: 12px;
+	margin: 10px 0 6px;
+}
+
+.animate-box {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100px;
+	height: 100px;
+	border-radius: 12px;
+	background: linear-gradient(135deg, var(--brand), var(--brand-2));
+}
+
+.jq-gallery .gallery {
+	display: grid;
+	grid-template-columns: 1.4fr 1fr;
+	gap: 12px;
+}
+
+@media (max-width: 720px) {
+	.jq-gallery .gallery {
+		grid-template-columns: 1fr;
+	}
+}
+
+.jq-gallery .preview img {
+	width: 100%;
+}
+
+.jq-gallery .thumbs {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 8px;
+}
+
+.jq-gallery .thumb {
+	cursor: pointer;
+	opacity: .6;
+	border: 2px solid transparent;
+}
+
+.jq-gallery .thumb.active {
+	opacity: 1;
+	border-color: var(--brand);
+}
+
+.jq-accordion .accordion-item {
+	margin: 10px 0;
+}
+
+.jq-accordion .accordion-header {
+	width: 100%;
+	text-align: left;
+	background: #151a24;
+	border: 1px solid var(--border);
+	color: var(--text);
+	border-radius: 12px;
+	padding: 12px;
+	cursor: pointer;
+}
+
+.jq-accordion .accordion-header.open {
+	background: #1a1f2b;
+}
+
+.jq-accordion .accordion-content {
+	display: none;
+	background: #141a24;
+	border: 1px solid var(--border);
+	border-radius: 12px;
+	padding: 12px;
+	margin-top: 8px;
+}
+
+.jq-ball-area {
+	position: relative;
+	height: 220px;
+	background: #141a24;
+	border: 1px solid var(--border);
+	border-radius: 12px;
+	overflow: hidden;
+}
+
+.jq-ball {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.45) 0%, rgba(255,255,255,0) 60%), var(--brand);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, .4);
+}

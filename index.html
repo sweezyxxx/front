@@ -3,7 +3,7 @@
     <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Cooking & Recipes — Главная</title>
+    <title>Cooking & Recipes — Главная</title>
             <link rel="stylesheet" href="style.css">
     </head>
 <body>
@@ -118,6 +118,105 @@
     <p>Попробуйте недельный план: экономит время и деньги, а блюда остаются разнообразными.</p>
     <a class="btn primary" href="meal-plans.html">Открыть план на неделю</a>
   </section>
+
+  <section class="container jquery-section">
+    <h2 class="section-title">jQuery демонстрации</h2>
+
+    <div class="demo-block">
+      <h3>Selectors & CSS</h3>
+      <div class="selectors-demo">
+        <p id="jq-by-id" class="demo-p">Элемент, выбранный по ID</p>
+        <p class="jq-by-class demo-p">Элемент, выбранный по классу</p>
+        <p class="jq-by-tag demo-p">Элемент, выбранный по тегу &lt;p&gt;</p>
+        <div class="actions">
+          <button id="jq-set-text" class="btn" type="button">.text()</button>
+          <button id="jq-set-html" class="btn" type="button">.html()</button>
+          <button id="jq-apply-css" class="btn" type="button">.css()</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-block">
+      <h3>jQuery Effects</h3>
+      <p id="jq-paragraph" class="demo-p">Этот абзац можно спрятать, показать или переключить.</p>
+      <div class="actions">
+        <button id="jq-hide" class="btn" type="button">Hide</button>
+        <button id="jq-show" class="btn" type="button">Show</button>
+        <button id="jq-toggle" class="btn" type="button">Toggle</button>
+      </div>
+
+      <div class="fade-demo">
+        <img id="jq-fade-img" src="images/greck.jpg" alt="Demo" style="max-width:240px; display:block;">
+        <div class="actions">
+          <button id="jq-fade-in" class="btn" type="button">fadeIn</button>
+          <button id="jq-fade-out" class="btn" type="button">fadeOut</button>
+          <button id="jq-fade-toggle" class="btn" type="button">fadeToggle</button>
+        </div>
+      </div>
+
+      <div class="panel-demo">
+        <div class="panel-controls actions">
+          <button id="jq-slide-down" class="btn" type="button">slideDown</button>
+          <button id="jq-slide-up" class="btn" type="button">slideUp</button>
+          <button id="jq-slide-toggle" class="btn" type="button">slideToggle</button>
+        </div>
+        <div id="jq-panel" class="panel" style="display:none;">
+          <p class="demo-p">Это свернутая/разворачиваемая панель.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-block">
+      <h3>DOM Manipulation</h3>
+      <ul id="jq-list" class="demo-list">
+        <li>Элемент A</li>
+        <li>Элемент B</li>
+      </ul>
+      <div class="actions">
+        <button id="jq-prepend-item" class="btn" type="button">Prepend</button>
+        <button id="jq-append-item" class="btn" type="button">Append</button>
+        <button id="jq-remove-item" class="btn danger" type="button">Remove last</button>
+      </div>
+
+      <div class="actions">
+        <img id="jq-switch-img" src="images/tomato.jpg" alt="Switchable" style="max-width:160px;">
+        <button id="jq-change-img" class="btn" type="button">Поменять картинку (src)</button>
+      </div>
+      <div class="actions">
+        <a id="jq-dynamic-link" class="btn" href="https://example.com" target="_blank" rel="noopener">Внешняя ссылка</a>
+        <button id="jq-change-link" class="btn" type="button">Поменять ссылку (href)</button>
+      </div>
+    </div>
+
+    <div class="demo-block">
+      <h3>Animations</h3>
+      <div class="animate-area">
+        <div id="jq-box" class="animate-box"></div>
+      </div>
+      <div class="actions">
+        <button id="jq-animate-steps" class="btn" type="button">Step-by-step</button>
+        <button id="jq-animate-combined" class="btn" type="button">Combined</button>
+      </div>
+    </div>
+
+    <div class="demo-block jq-gallery">
+      <h3>Image Gallery</h3>
+      <div class="actions">
+        <button id="jq-gallery-hide" class="btn" type="button">Hide thumbnails</button>
+        <button id="jq-gallery-show" class="btn" type="button">Show thumbnails</button>
+        <button id="jq-gallery-toggle" class="btn" type="button">Toggle thumbnails</button>
+      </div>
+      <div class="gallery">
+        <div class="preview"><img src="images/carbonara.jpg" alt="Preview"></div>
+        <div class="thumbs">
+          <img class="thumb" src="images/cesar.jpg" data-large="images/cesar.jpg" alt="Цезарь">
+          <img class="thumb" src="images/greck.jpg" data-large="images/greck.jpg" alt="Греческий">
+          <img class="thumb" src="images/cheese.jpg" data-large="images/cheese.jpg" alt="Чизкейк">
+          <img class="thumb" src="images/tomato.jpg" data-large="images/tomato.jpg" alt="Томатный суп">
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer class="site-footer">
@@ -131,6 +230,8 @@
     </div>
   </div>
 </footer>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" defer></script>
+<script src="jquery-demo.js" defer></script>
 <script src="app.js" defer></script>
 </body>
 </html>
