@@ -1,4 +1,5 @@
 Project: “Cooking & Recipes” — A food and recipe blog featuring easy-to-follow cooking tutorials and meal plans
+Students: Bexultan Nishanbek & Almukhamedov Temirlan
 
 1) Objectives
 	•	Build a simple, user-friendly cooking website with 4 pages: Home, Recipes, Meal Plans, and About.
