@@ -48,6 +48,20 @@
         <h2 class="widget-title">Игра: Угадай число</h2>
         <button class="btn" id="guess-game-btn" type="button">Играть</button>
       </div>
+      <div class="widget-card">
+        <h2 class="widget-title">Погода</h2>
+        <div class="actions">
+          <select id="weather-city" aria-label="Выбор города">
+            <option value="almaty">Алматы</option>
+            <option value="astana">Астана</option>
+            <option value="shymkent">Шымкент</option>
+            <option value="moscow">Москва</option>
+            <option value="london">Лондон</option>
+          </select>
+          <button class="btn" id="weather-refresh" type="button">Обновить</button>
+        </div>
+        <div id="weather-output" class="datetime" style="margin-top:8px;"></div>
+      </div>
     </div>
   </section>
 

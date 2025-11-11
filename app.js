@@ -40,11 +40,24 @@ function initBackgroundColorChanger() {
 		'#4f8cff',
 		'#59d4a9'
 	];
+	const STORAGE_KEY = 'cr_bg_color';
 	let currentIndex = 0;
+
+	const saved = localStorage.getItem(STORAGE_KEY);
+	if (saved) {
+		const idx = palette.indexOf(saved);
+		if (idx >= 0) {
+			currentIndex = idx;
+			document.body.style.background = saved;
+		}
+	}
 
 	button.addEventListener('click', () => {
 		currentIndex = (currentIndex + 1) % palette.length;
 		document.body.style.background = palette[currentIndex];
+		try {
+			localStorage.setItem(STORAGE_KEY, palette[currentIndex]);
+		} catch (_) {}
 	});
 }
 
@@ -345,6 +358,63 @@ function initSortingTool() {
 	});
 }
 
+function initWeatherWidget() {
+	const citySelect = selectById('weather-city');
+	const refreshBtn = selectById('weather-refresh');
+	const output = selectById('weather-output');
+	if (!citySelect || !refreshBtn || !output) return;
+
+	const STORAGE_KEY = 'cr_weather_city_v1';
+	const cities = [
+		{ key: 'almaty', name: 'Алматы', latitude: 43.238949, longitude: 76.889709, timezone: 'auto' },
+		{ key: 'astana', name: 'Астана', latitude: 51.1605, longitude: 71.4704, timezone: 'auto' },
+		{ key: 'shymkent', name: 'Шымкент', latitude: 42.3154, longitude: 69.5869, timezone: 'auto' },
+		{ key: 'moscow', name: 'Москва', latitude: 55.7558, longitude: 37.6173, timezone: 'Europe/Moscow' },
+		{ key: 'london', name: 'Лондон', latitude: 51.5072, longitude: -0.1276, timezone: 'Europe/London' }
+	];
+
+	function getCityByKey(key) {
+		return cities.find(c => c.key === key) || cities[0];
+	}
+
+	function setLoading(isLoading) {
+		output.textContent = isLoading ? 'Загрузка...' : output.textContent;
+	}
+
+	async function fetchWeather(cityKey) {
+		const city = getCityByKey(cityKey);
+		setLoading(true);
+		try {
+			const url = `https://api.open-meteo.com/v1/forecast?latitude=${encodeURIComponent(city.latitude)}&longitude=${encodeURIComponent(city.longitude)}&current_weather=true&timezone=${encodeURIComponent(city.timezone)}`;
+			const res = await fetch(url);
+			if (!res.ok) throw new Error('Network error');
+			const data = await res.json();
+			const cw = data && data.current_weather;
+			if (!cw) throw new Error('No data');
+			const temp = Math.round(Number(cw.temperature));
+			const wind = Math.round(Number(cw.windspeed));
+			const time = cw.time ? new Date(cw.time).toLocaleString() : '';
+			output.textContent = `${city.name}: ${temp}°C, ветер ${wind} м/с${time ? ` (${time})` : ''}`;
+		} catch (e) {
+			output.textContent = 'Не удалось загрузить погоду. Попробуйте позже.';
+		} finally {
+			setLoading(false);
+		}
+	}
+
+	const saved = localStorage.getItem(STORAGE_KEY);
+	if (saved) citySelect.value = saved;
+
+	citySelect.addEventListener('change', () => {
+		const key = citySelect.value;
+		try { localStorage.setItem(STORAGE_KEY, key); } catch (_) {}
+		fetchWeather(key);
+	});
+	refreshBtn.addEventListener('click', () => fetchWeather(citySelect.value));
+
+	fetchWeather(citySelect.value);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 	initCurrentDateTime();
 	initBackgroundColorChanger();
@@ -352,6 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	initContactFormValidation();
 	initTodoApp();
 	initSortingTool();
+	initWeatherWidget();
 });
 
 
