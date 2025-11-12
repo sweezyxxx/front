@@ -98,111 +98,133 @@ function initGuessingGame() {
 	});
 }
 
-function initContactFormValidation() {
-	const form = selectById('contact-form');
-	if (!form) return;
+function initTheme() {
+	const THEME_KEY = 'cr_theme_v1';
+	const toggle = selectById('theme-toggle');
+	const root = document.documentElement;
 
-	const nameInput = form.querySelector('input[name="name"]');
-	const emailInput = form.querySelector('input[name="email"]');
-	const passwordInput = form.querySelector('input[name="password"]');
-	const confirmInput = form.querySelector('input[name="confirmPassword"]');
-	const messageInput = form.querySelector('textarea[name="message"]');
-	const formStatus = selectById('form-status');
-
-	function setFieldError(input, message) {
-		const field = input.closest('.field');
-		const errorElement = field ? field.querySelector('.error-text') : null;
-		if (errorElement) {
-			errorElement.textContent = message || '';
-			errorElement.style.display = message ? 'block' : 'none';
-		}
-		if (message) {
-			input.setAttribute('aria-invalid', 'true');
-		} else {
-			input.removeAttribute('aria-invalid');
+	function applyTheme(theme) {
+		root.setAttribute('data-theme', theme);
+		if (toggle) {
+			const isDark = theme === 'dark';
+			toggle.setAttribute('aria-pressed', String(isDark));
+			toggle.textContent = `Тема: ${isDark ? 'Тёмная' : 'Светлая'}`;
 		}
 	}
 
-	function clearFormStatus() {
-		if (formStatus) {
-			formStatus.textContent = '';
-			formStatus.className = 'sr-status';
-		}
+	function getPreferred() {
+		const saved = localStorage.getItem(THEME_KEY);
+		if (saved === 'dark' || saved === 'light') return saved;
+		const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+		return prefersDark ? 'dark' : 'light';
 	}
 
-	function setFormSuccess(message) {
-		if (formStatus) {
-			formStatus.textContent = message;
-			formStatus.className = 'sr-status success-text';
-		}
-	}
+	let current = getPreferred();
+	applyTheme(current);
 
-	function validateEmail(value) {
-		return /.+@.+\..+/.test(value);
-	}
-
-	function validateForm() {
-		let isValid = true;
-
-		const nameValue = nameInput.value.trim();
-		if (nameValue.length < 2) {
-			setFieldError(nameInput, 'Имя обязательно и должно быть не короче 2 символов.');
-			isValid = false;
-		} else {
-			setFieldError(nameInput, '');
-		}
-
-		const emailValue = emailInput.value.trim();
-		if (!validateEmail(emailValue)) {
-			setFieldError(emailInput, 'Введите корректный email.');
-			isValid = false;
-		} else {
-			setFieldError(emailInput, '');
-		}
-
-		const passwordValue = passwordInput.value;
-		if (passwordValue.length < 6) {
-			setFieldError(passwordInput, 'Пароль должен быть не короче 6 символов.');
-			isValid = false;
-		} else {
-			setFieldError(passwordInput, '');
-		}
-
-		const confirmValue = confirmInput.value;
-		if (confirmValue !== passwordValue || confirmValue.length === 0) {
-			setFieldError(confirmInput, 'Подтверждение пароля не совпадает.');
-			isValid = false;
-		} else {
-			setFieldError(confirmInput, '');
-		}
-
-		if (messageInput && messageInput.value.trim().length > 0) {
-			const normalized = messageInput.value.replace(/\s+/g, ' ').trim();
-			if (normalized !== messageInput.value) {
-				messageInput.value = normalized;
-			}
-		}
-
-		return isValid;
-	}
-
-	[nameInput, emailInput, passwordInput, confirmInput, messageInput].forEach((input) => {
-		if (!input) return;
-		input.addEventListener('input', () => {
-			setFieldError(input, '');
-			clearFormStatus();
+	if (toggle) {
+		toggle.addEventListener('click', () => {
+			current = current === 'dark' ? 'light' : 'dark';
+			applyTheme(current);
+			try { localStorage.setItem(THEME_KEY, current); } catch (_) {}
 		});
-	});
+	}
+}
 
-	form.addEventListener('submit', (event) => {
-		event.preventDefault();
-		clearFormStatus();
-		const isValid = validateForm();
-		if (isValid) {
-			setFormSuccess('Форма успешно проверена и отправлена (демо).');
-			form.reset();
-		}
+function initRevealOnScroll() {
+	const revealables = document.querySelectorAll('.card, .recipe, .plan-col, .widget-card, .demo-block');
+	revealables.forEach((el) => el.classList.add('reveal'));
+	if (!('IntersectionObserver' in window)) {
+		revealables.forEach((el) => el.classList.add('is-revealed'));
+		return;
+	}
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach((entry) => {
+			if (entry.isIntersecting) {
+				entry.target.classList.add('is-revealed');
+				observer.unobserve(entry.target);
+			}
+		});
+	}, { threshold: 0.15 });
+	revealables.forEach((el) => observer.observe(el));
+}
+
+function initLatestPosts() {
+	const root = selectById('latest-posts');
+	if (!root) return;
+	const posts = [
+		{ title: 'Паста альфредо', text: 'Сливочная классика за 15 минут.', img: 'public/images/carbonara.jpg', href: 'recipes.html#carbonara' },
+		{ title: 'Куриный суп-лапша', text: 'Сытный суп для всей семьи.', img: 'public/images/soup.jpg', href: 'recipes.html#chicken-soup' },
+		{ title: 'Греческий салат', text: 'Свежий, яркий и быстрый.', img: 'public/images/greck.jpg', href: 'recipes.html#greek-salad' },
+		{ title: 'Чизкейк', text: 'Кремовый десерт к чаю.', img: 'public/images/cheese.jpg', href: 'recipes.html#cheesecake' }
+	];
+	root.innerHTML = '';
+	posts.forEach((p) => {
+		const a = createElement('a', 'card');
+		a.href = p.href;
+		const img = createElement('img');
+		img.src = p.img;
+		img.alt = p.title;
+		const body = createElement('div', 'card-body');
+		const h3 = createElement('h3', undefined, p.title);
+		const desc = createElement('p', undefined, p.text);
+		body.appendChild(h3);
+		body.appendChild(desc);
+		a.appendChild(img);
+		a.appendChild(body);
+		root.appendChild(a);
 	});
+}
+
+function initRecipeSearchAndLikes() {
+	const searchInput = selectById('recipe-search-input');
+	const articles = Array.from(document.querySelectorAll('article.recipe'));
+	const LIKE_KEY = 'cr_recipe_likes_v1';
+
+	function loadLikes() {
+		try {
+			const raw = localStorage.getItem(LIKE_KEY);
+			return raw ? JSON.parse(raw) : {};
+		} catch (_) {
+			return {};
+		}
+	}
+	function saveLikes(likes) {
+		try { localStorage.setItem(LIKE_KEY, JSON.stringify(likes)); } catch (_) {}
+	}
+	const likes = loadLikes();
+
+	function ensureLikeButtons() {
+		articles.forEach((article) => {
+			if (article.querySelector('.recipe-like')) return;
+			const content = article.querySelector('.recipe-content') || article;
+			const btn = createElement('button', 'btn recipe-like', '❤ Нравится');
+			btn.type = 'button';
+			const id = article.id || content.querySelector('h2')?.textContent || Math.random().toString(36);
+			if (likes[id]) btn.classList.add('active');
+			btn.addEventListener('click', () => {
+				const next = !likes[id];
+				likes[id] = next;
+				if (!next) delete likes[id];
+				btn.classList.toggle('active', next);
+				saveLikes(likes);
+			});
+			content.appendChild(btn);
+		});
+	}
+
+	function filterArticles(query) {
+		const q = (query || '').trim().toLowerCase();
+		articles.forEach((article) => {
+			const text = article.textContent.toLowerCase();
+			article.style.display = q && !text.includes(q) ? 'none' : '';
+		});
+	}
+
+	if (searchInput) {
+		searchInput.addEventListener('input', () => filterArticles(searchInput.value));
+	}
+	ensureLikeButtons();
 }
 
 function initTodoApp() {
@@ -416,6 +438,7 @@ function initWeatherWidget() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+	initTheme();
 	initCurrentDateTime();
 	initBackgroundColorChanger();
 	initGuessingGame();
@@ -423,6 +446,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	initTodoApp();
 	initSortingTool();
 	initWeatherWidget();
+	initLatestPosts();
+	initRecipeSearchAndLikes();
+	initRevealOnScroll();
 });
 
 

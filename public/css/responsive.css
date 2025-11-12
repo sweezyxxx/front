@@ -1,0 +1,24 @@
+@media (max-width: 860px) {
+	.header-row {
+		flex-wrap: wrap;
+		row-gap: 10px;
+	}
+	.nav {
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+	#theme-toggle {
+		margin-left: auto;
+	}
+}
+
+@media (max-width: 600px) {
+	.logo-p {
+		font-size: 14px;
+	}
+	.btn {
+		padding: 10px 14px;
+	}
+}
+
+

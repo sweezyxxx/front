@@ -40,7 +40,7 @@ $(function () {
     $('#jq-change-img').on('click', function () {
         const img = $('#jq-switch-img');
         const current = img.attr('src') || '';
-        const next = current.includes('newone.png') ? 'images/carbonara.jpg' : 'images/newone.png';
+        const next = current.includes('newone.png') ? 'public/images/carbonara.jpg' : 'public/images/newone.png';
         img.attr('src', next);
     });
     $('#jq-change-link').on('click', function () {

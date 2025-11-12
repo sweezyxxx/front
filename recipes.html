@@ -4,13 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cooking & Recipes — Рецепты</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="public/css/responsive.css">
 </head>
 <body>
+<a href="#main" class="skip-link">Пропустить к контенту</a>
 <header class="site-header">
   <div class="container header-row">
     <a href="index.html" class="logo">
-        <img src="logo/logo.png" alt="logo" class="logo-img">
+        <img src="public/images/logo/logo.png" alt="logo" class="logo-img">
         <p class="logo-p">Cooking & Recipes</p>
     </a>
     <nav class="nav">
@@ -19,11 +21,19 @@
       <a href="meal-plans.html">Планы питания</a>
       <a href="about.html">О нас</a>
     </nav>
+    <button id="theme-toggle" class="btn" type="button" aria-pressed="false" aria-label="Переключить тему">Тема: Тёмная</button>
   </div>
 </header>
 
-<main class="container">
+<main id="main" class="container">
   <h1 class="page-title">Пошаговые рецепты</h1>
+  <section class="sorting-tool" id="recipe-search">
+    <h2>Поиск рецептов</h2>
+    <div class="field">
+      <label for="recipe-search-input">Введите название или ингредиент</label>
+      <input type="text" id="recipe-search-input" placeholder="Например: томат, суп, салат">
+    </div>
+  </section>
   <div class="toc">
     <a href="#carbonara">Карбонара</a>
     <a href="#bolognese">Болоньезе</a>
@@ -78,7 +88,7 @@
 
   <article id="carbonara" class="recipe">
     <div class="recipe-media">
-      <img src="images/carbonara.jpg" alt="Карбонара">
+      <img src="public/images/carbonara.jpg" alt="Карбонара">
     </div>
     <div class="recipe-content">
       <h2>Карбонара</h2>
@@ -104,7 +114,7 @@
 
   <article id="bolognese" class="recipe">
     <div class="recipe-media">
-      <img src="images/balon.jpg" alt="Болоньезе">
+      <img src="public/images/balon.jpg" alt="Болоньезе">
     </div>
     <div class="recipe-content">
       <h2>Болоньезе</h2>
@@ -129,7 +139,7 @@
 
   <article id="caesar-salad" class="recipe">
     <div class="recipe-media">
-      <img src="images/cesar.jpg" alt="Салат Цезарь">
+      <img src="public/images/cesar.jpg" alt="Салат Цезарь">
     </div>
     <div class="recipe-content">
       <h2>Салат Цезарь</h2>
@@ -153,7 +163,7 @@
 
   <article id="greek-salad" class="recipe">
     <div class="recipe-media">
-      <img src="images/greck.jpg" alt="Греческий салат">
+      <img src="public/images/greck.jpg" alt="Греческий салат">
     </div>
     <div class="recipe-content">
       <h2>Греческий салат</h2>
@@ -175,7 +185,7 @@
 
   <article id="tomato-soup" class="recipe">
     <div class="recipe-media">
-      <img src="images/tomato.jpg" alt="Томатный суп">
+      <img src="public/images/tomato.jpg" alt="Томатный суп">
     </div>
     <div class="recipe-content">
       <h2>Томатный суп</h2>
@@ -198,7 +208,7 @@
 
   <article id="chicken-soup" class="recipe">
     <div class="recipe-media">
-      <img src="images/soup.jpg" alt="Куриный суп">
+      <img src="public/images/soup.jpg" alt="Куриный суп">
     </div>
     <div class="recipe-content">
       <h2>Куриный суп</h2>
@@ -220,7 +230,7 @@
 
   <article id="omelette" class="recipe">
     <div class="recipe-media">
-      <img src="images/omlet.jpg" alt="Омлет">
+      <img src="public/images/omlet.jpg" alt="Омлет">
     </div>
     <div class="recipe-content">
       <h2>Омлет</h2>
@@ -242,7 +252,7 @@
 
   <article id="cheesecake" class="recipe">
     <div class="recipe-media">
-      <img src="images/cheese.jpg" alt="Чизкейк">
+      <img src="public/images/cheese.jpg" alt="Чизкейк">
     </div>
     <div class="recipe-content">
       <h2>Чизкейк</h2>
@@ -273,11 +283,13 @@
       <a href="about.html">О нас</a>
       <a href="index.html">Главная</a>
       <a href="meal-plans.html">Планы питания</a>
+      <a href="contact.html">Контакты</a>
     </div>
   </div>
 </footer>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" defer></script>
-<script src="jquery-demo.js" defer></script>
-<script src="app.js" defer></script>
+<script src="public/js/ui.js" defer></script>
+<script src="public/js/validation.js" defer></script>
+<script src="public/js/main.js" defer></script>
 </body>
 </html>
